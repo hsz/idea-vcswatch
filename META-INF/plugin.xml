@@ -1,0 +1,66 @@
+<idea-plugin version="2">
+    <id>mobi.hsz.idea.vcswatch</id>
+    <name>VCS watch</name>
+    <version>0.1</version>
+    <vendor email="jakub@hsz.mobi" url="http://www.hsz.mobi">hsz</vendor>
+
+    <description><![CDATA[
+      <h1>VCS watch</h1>
+      <br/>
+      <a href="https://github.com/hsz/idea-vcswatch">GitHub</a> |
+      <a href="https://github.com/hsz/idea-vcswatch/issues">Issues</a> | Donate (
+      <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SJAU4XWQ584QL">PayPal</a> or
+      <a href="https://blockchain.info/address/1BUbqKrUBmGGSnMybzGCsJyAWJbh4CcwE1">BTC</a> )
+      <br/>
+      <br/>
+      <b>VCS watch</b> is a plugin that watches for any changes in the current project's repositories.
+      <br/>
+      <b>Features</b>
+      <ul>
+        <li>none</li>
+      </ul>
+      <br/>
+      <br/>
+      <b>Feature requests</b>
+      <ul>
+        <li>Support GIT repositories</li>
+        <li>Support SVN repositories</li>
+        <li>Support Mercurial repositories</li>
+        <li>Exclude project repositories from watching</li>
+      </ul>
+      <br/>
+      <br/>
+      <i>Compiled with Java 1.6</i>
+      <br/>
+      <br/>
+    ]]></description>
+
+    <change-notes><![CDATA[
+
+            ]]>
+    </change-notes>
+
+    <idea-version since-build="123.72"/>
+    <depends>com.intellij.modules.lang</depends>
+    <depends optional="true">Git4Idea</depends>
+    <depends optional="true">hg4idea</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <projectService
+                serviceImplementation="mobi.hsz.idea.vcswatch.core.VcsWatchManager"/>
+    </extensions>
+
+    <application-components>
+        <!-- Add your application components here -->
+    </application-components>
+
+    <project-components>
+        <component>
+            <implementation-class>mobi.hsz.idea.vcswatch.VcsWatchProjectComponent</implementation-class>
+        </component>
+    </project-components>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+</idea-plugin>
