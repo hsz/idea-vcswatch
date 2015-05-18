@@ -78,7 +78,7 @@ public class CommitNotificationProjectComponent implements ProjectComponent {
     /**
      * Action that shows new {@link Notification} with {@link Commit} messages.
      */
-    private Runnable notify = new Runnable() {
+    private final Runnable notify = new Runnable() {
         @Override
         public void run() {
             if (commits.isEmpty()) {
@@ -93,7 +93,7 @@ public class CommitNotificationProjectComponent implements ProjectComponent {
     /**
      * Listens for the new {@link Commit} items.
      */
-    private VcsWatchManager.OnCommitListener onCommitListener = new VcsWatchManager.OnCommitListener() {
+    private final VcsWatchManager.OnCommitListener onCommitListener = new VcsWatchManager.OnCommitListener() {
         @Override
         public void onCommit(@NotNull Commit commit) {
             if (scheduledFeature != null) {

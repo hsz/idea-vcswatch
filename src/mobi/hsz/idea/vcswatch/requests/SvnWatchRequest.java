@@ -7,7 +7,6 @@ import com.intellij.util.containers.ContainerUtil;
 import mobi.hsz.idea.vcswatch.core.Commit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.idea.svn.SvnApplicationSettings;
-import org.jetbrains.idea.svn.SvnVcs;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -18,11 +17,8 @@ import java.util.Locale;
 
 public class SvnWatchRequest extends VcsWatchRequest {
 
-    private final SvnVcs root;
-
     public SvnWatchRequest(@NotNull AbstractVcs root, @NotNull VirtualFile workingDirectory) {
         super(root, workingDirectory);
-        this.root = (SvnVcs) root;
     }
 
     @NotNull

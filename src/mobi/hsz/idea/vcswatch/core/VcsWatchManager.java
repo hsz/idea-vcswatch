@@ -31,11 +31,6 @@ public class VcsWatchManager {
     private static final long DELAY = 1;
 
     /**
-     * Current project.
-     */
-    private final Project project;
-
-    /**
      * Project VCS manager.
      */
     private final ProjectLevelVcsManager vcsManager;
@@ -62,7 +57,6 @@ public class VcsWatchManager {
 
 
     private VcsWatchManager(@NotNull Project project) {
-        this.project = project;
         this.vcsManager = ProjectLevelVcsManager.getInstance(project);
         this.scheduler = JobScheduler.getScheduler();
     }

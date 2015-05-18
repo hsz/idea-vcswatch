@@ -16,9 +16,6 @@ import java.util.List;
 
 public abstract class VcsWatchRequest implements Runnable {
 
-    /** VCS to handle. */
-    private final AbstractVcs vcs;
-
     /** VCS working directory. */
     private final VirtualFile workingDirectory;
 
@@ -26,7 +23,6 @@ public abstract class VcsWatchRequest implements Runnable {
     private final VcsWatchManager vcsWatchManager;
 
     public VcsWatchRequest(@NotNull final AbstractVcs vcs, @NotNull final VirtualFile workingDirectory) {
-        this.vcs = vcs;
         this.workingDirectory = workingDirectory;
         this.vcsWatchManager = VcsWatchManager.getInstance(vcs.getProject());
     }
