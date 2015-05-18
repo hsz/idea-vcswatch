@@ -13,28 +13,28 @@ import java.util.regex.Pattern;
 
 public class GitWatchRequest extends VcsWatchRequest {
 
-    private static final String FORMAT = "%h %an ## %ad ## %s";
+    private static final String TEMPLATE = "%h %an ## %ad ## %s";
     private static final Pattern PATTERN = Pattern.compile("^(\\w+) (.*?) ## (\\d+) .*? ## (.*)$", Pattern.MULTILINE);
-
-    /** Path to the GIT executable. */
-    private final String bin;
 
     public GitWatchRequest(@NotNull AbstractVcs vcs, @NotNull VirtualFile workingDirectory) {
         super(vcs, workingDirectory);
+    }
 
-        // TODO: handle empty path to git
-        this.bin = GitVcsApplicationSettings.getInstance().getPathToGit();
+    @NotNull
+    @Override
+    protected String getExecutable() {
+        return GitVcsApplicationSettings.getInstance().getPathToGit();
     }
 
     @Override
     public void run() {
         // Update information about ahead commits. If nothing is returned, repository has no remote.
-        if (exec(bin, "remote", "update") == null) {
+        if (exec("remote", "update") == null) {
             return;
         }
 
         // Check logs. If nothing is returned, there are not commits to pull.
-        ProcessOutput output = exec(bin, "log", "..@{u}", "--date=raw", "--pretty=format:" + FORMAT);
+        ProcessOutput output = exec("log", "..@{u}", "--date=raw", "--pretty=format:" + TEMPLATE);
         if (output == null) {
             return;
         }
