@@ -28,7 +28,7 @@ public class VcsWatchManager {
     /**
      * TODO: don't use static delay
      */
-    private static final long DELAY = 1;
+    private static final long DELAY = 600;
 
     /**
      * Project VCS manager.
@@ -75,8 +75,8 @@ public class VcsWatchManager {
         for (VcsRoot root : roots) {
             VcsWatchRequest request = VcsWatchRequestFactory.create(root);
             if (request != null) {
-                scheduledFutureList.add(scheduler.schedule(request, DELAY, TimeUnit.SECONDS));
-//                scheduledFutureList.add(scheduler.scheduleWithFixedDelay(request, 0, DELAY, TimeUnit.SECONDS));
+//                scheduledFutureList.add(scheduler.schedule(request, DELAY, TimeUnit.SECONDS));
+                scheduledFutureList.add(scheduler.scheduleWithFixedDelay(request, 0, DELAY, TimeUnit.SECONDS));
             }
         }
     }
