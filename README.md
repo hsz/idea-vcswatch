@@ -13,15 +13,13 @@ Introduction
 Features
 --------
 
-- none
-
+- Support GIT repositories
+- Support SVN repositories
+- Support Mercurial repositories
 
 Feature requests
 ----------------
 
-- Support GIT repositories
-- Support SVN repositories
-- Support Mercurial repositories
 - Exclude project repositories from watching
 
 
@@ -38,6 +36,12 @@ Restart IDE.
 
 Changelog
 ---------
+
+## [v0.1](https://github.com/hsz/idea-vcswatch/tree/v0.1) (2015-05-19)
+
+- Support GIT repositories
+- Support SVN repositories
+- Support Mercurial repositories
 
 [Full Changelog History](./CHANGELOG.md)
 

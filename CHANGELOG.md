@@ -1,6 +1,10 @@
 # Change Log
 
+## [v0.1](https://github.com/hsz/idea-vcswatch/tree/v0.1) (2015-05-19)
 
+- Support GIT repositories
+- Support SVN repositories
+- Support Mercurial repositories
 
 License
 -------

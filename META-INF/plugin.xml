@@ -36,7 +36,12 @@
     ]]></description>
 
     <change-notes><![CDATA[
-
+        <a href="https://github.com/hsz/idea-vcswatch/tree/v0.1">v0.1</a> (2015-05-19)<br/><br/>
+        <ul>
+            <li>Support GIT repositories</li>
+            <li>Support SVN repositories</li>
+            <li>Support Mercurial repositories</li>
+        </ul>
             ]]>
     </change-notes>
 
