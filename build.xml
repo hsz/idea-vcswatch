@@ -87,5 +87,5 @@
         </jar>
     </target>
 
-    <target name="all" depends="clean, test-check, package" description="Build all"/>
+    <target name="all" depends="clean, package" description="Build all"/>
 </project>
