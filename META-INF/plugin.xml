@@ -13,7 +13,7 @@
       <a href="https://blockchain.info/address/1BUbqKrUBmGGSnMybzGCsJyAWJbh4CcwE1">BTC</a> )
       <br/>
       <br/>
-      <b>VCS watch</b> is a plugin that watches for any changes in the current project's repositories.
+      <b>VCS watch</b> is a plugin that periodically checks for any changes in the current project's repositories.
       <br/>
       <b>Features</b>
       <ul>
@@ -56,11 +56,14 @@
 
     <project-components>
         <component>
-            <implementation-class>mobi.hsz.idea.vcswatch.VcsWatchProjectComponent</implementation-class>
+            <implementation-class>mobi.hsz.idea.vcswatch.components.VcsWatchProjectComponent</implementation-class>
+        </component>
+        <component>
+            <implementation-class>mobi.hsz.idea.vcswatch.components.CommitNotificationProjectComponent
+            </implementation-class>
         </component>
     </project-components>
 
     <actions>
-        <!-- Add your actions here -->
     </actions>
 </idea-plugin>

@@ -19,17 +19,17 @@ public class VcsWatchRequestFactory {
     @Nullable
     public static VcsWatchRequest create(@NotNull VcsRoot root) {
         AbstractVcs vcs = root.getVcs();
-        if (vcs == null) {
+        if (vcs == null || root.getPath() == null) {
             return null;
         }
 
         if (vcs instanceof GitVcs) {
-            return new GitWatchRequest(root);
+            return new GitWatchRequest(vcs, root.getPath());
         } else if (vcs instanceof HgVcs) {
-            return new HgWatchRequest(root);
+            return new HgWatchRequest(vcs, root.getPath());
         }
 
-        throw new NotProvidedException(vcs.getName());
+        throw new NotImplementedException(vcs.getName());
     }
 
 }

@@ -1,4 +1,4 @@
-package mobi.hsz.idea.vcswatch;
+package mobi.hsz.idea.vcswatch.components;
 
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.project.Project;
@@ -54,18 +54,16 @@ public class VcsWatchProjectComponent implements ProjectComponent {
 
     @Override
     public void initComponent() {
-
     }
 
     @Override
     public void disposeComponent() {
-
     }
 
     @NotNull
     @Override
     public String getComponentName() {
-        return VcsWatchBundle.PLUGIN_NAME + ".ProjectComponent";
+        return "VcsWatch.VcsWatch";
     }
 
 }

@@ -1,11 +1,11 @@
-.ignore [![Build Status](https://travis-ci.org/hsz/idea-vcswatch.svg)](https://travis-ci.org/hsz/idea-gitignore) [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SJAU4XWQ584QL) <a href="http://blockchain.info/address/1BUbqKrUBmGGSnMybzGCsJyAWJbh4CcwE1"><img src="https://www.gnu.org/software/octave/images/donate-bitcoin.png" width="100" height="21"/></a>
+VCS watch [![Build Status](https://travis-ci.org/hsz/idea-vcswatch.svg)](https://travis-ci.org/hsz/idea-gitignore) [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SJAU4XWQ584QL) <a href="http://blockchain.info/address/1BUbqKrUBmGGSnMybzGCsJyAWJbh4CcwE1"><img src="https://www.gnu.org/software/octave/images/donate-bitcoin.png" width="100" height="21"/></a>
 ==================
 
 
 Introduction
 ------------
 
-**VCS watch** is a plugin that watches for any changes in the current project's repositories.
+**VCS watch** is a plugin that periodically checks for any changes in the current project's repositories.
 
 *Compiled with Java 1.6*
 
