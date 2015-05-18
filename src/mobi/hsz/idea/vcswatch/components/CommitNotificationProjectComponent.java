@@ -5,11 +5,16 @@ import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationListener;
 import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
+import com.intellij.openapi.actionSystem.ActionManager;
+import com.intellij.openapi.actionSystem.ActionPlaces;
+import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.playback.commands.ActionCommand;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vcs.changes.ui.ChangesViewContentManager;
+import com.intellij.openapi.vcs.update.AbstractCommonUpdateAction;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.ui.content.Content;
@@ -22,6 +27,7 @@ import mobi.hsz.idea.vcswatch.VcsWatchBundle;
 import mobi.hsz.idea.vcswatch.core.Commit;
 import mobi.hsz.idea.vcswatch.core.VcsWatchManager;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import javax.swing.event.HyperlinkEvent;
@@ -156,7 +162,7 @@ public class CommitNotificationProjectComponent implements ProjectComponent {
                 messages.add(VcsWatchBundle.message("notification.content", commit.getMessage(), commit.getId(), time, commit.getUser()));
             }
 
-            return StringUtil.join(messages, "<br/>");
+            return VcsWatchBundle.message("notification.update", StringUtil.join(messages, "<br/>"));
         }
 
         private static NotificationListener.Adapter createListener(@NotNull final Project project) {
@@ -164,51 +170,76 @@ public class CommitNotificationProjectComponent implements ProjectComponent {
 
                 private static final String HASH = "HASH:";
 
+                private static final String UPDATE = "UPDATE";
+
+                private static final String UPDATE_ACTION_ID = "Vcs.UpdateProject";
+
                 @Override
                 protected void hyperlinkActivated(@NotNull Notification notification, @NotNull HyperlinkEvent event) {
-                    if (StringUtil.startsWith(event.getDescription(), HASH)) {
-                        final String hash = StringUtil.substringAfter(event.getDescription(), HASH);
-                        final VcsLogManager log = ServiceManager.getService(project, VcsLogManager.class);
-                        if (log == null) {
-                            return;
+                    if (StringUtil.equals(event.getDescription(), UPDATE)) {
+                        update();
+                        if (!notification.isExpired()) {
+                            notification.expire();
                         }
+                    } else if (StringUtil.startsWith(event.getDescription(), HASH)) {
+                        jumpToReference(StringUtil.substringAfter(event.getDescription(), HASH));
+                    }
+                }
 
-                        final ToolWindowManager windowManager = ToolWindowManager.getInstance(project);
-                        final ToolWindow window = windowManager.getToolWindow(ChangesViewContentManager.TOOLWINDOW_ID);
-                        ContentManager cm = window.getContentManager();
-                        Content[] contents = cm.getContents();
-                        for (Content content : contents) {
-                            if (VcsLogContentProvider.TAB_NAME.equals(content.getDisplayName())) {
-                                cm.setSelectedContent(content);
-                            }
+                private void update() {
+                    final AnAction action = ActionManager.getInstance().getAction(UPDATE_ACTION_ID);
+                    assert action instanceof AbstractCommonUpdateAction;
+                    final AbstractCommonUpdateAction updateAction = (AbstractCommonUpdateAction) action;
+                    ActionManager.getInstance().tryToExecute(
+                            updateAction,
+                            ActionCommand.getInputEvent(UPDATE_ACTION_ID),
+                            null,
+                            ActionPlaces.UNKNOWN,
+                            true
+                    );
+                }
+
+                private void jumpToReference(@Nullable final String hash) {
+                    final VcsLogManager log = ServiceManager.getService(project, VcsLogManager.class);
+                    if (log == null) {
+                        return;
+                    }
+
+                    final ToolWindowManager windowManager = ToolWindowManager.getInstance(project);
+                    final ToolWindow window = windowManager.getToolWindow(ChangesViewContentManager.TOOLWINDOW_ID);
+                    ContentManager cm = window.getContentManager();
+                    Content[] contents = cm.getContents();
+                    for (Content content : contents) {
+                        if (VcsLogContentProvider.TAB_NAME.equals(content.getDisplayName())) {
+                            cm.setSelectedContent(content);
                         }
+                    }
 
-                        Runnable selectCommit = new Runnable() {
-                            private boolean invokedLater = false;
+                    Runnable selectCommit = new Runnable() {
+                        private boolean invokedLater = false;
 
-                            @Override
-                            public void run() {
-                                VcsLogUiImpl logUi = log.getLogUi();
-                                if (logUi != null) {
-                                    logUi.getVcsLog().jumpToReference(hash);
-                                } else {
-                                    if (invokedLater) {
-                                        try {
-                                            Thread.sleep(50);
-                                        } catch (InterruptedException ignored) {
-                                        }
+                        @Override
+                        public void run() {
+                            VcsLogUiImpl logUi = log.getLogUi();
+                            if (logUi != null) {
+                                logUi.getVcsLog().jumpToReference(hash);
+                            } else {
+                                if (invokedLater) {
+                                    try {
+                                        Thread.sleep(50);
+                                    } catch (InterruptedException ignored) {
                                     }
-                                    invokedLater = true;
-                                    windowManager.invokeLater(this);
                                 }
+                                invokedLater = true;
+                                windowManager.invokeLater(this);
                             }
-                        };
-
-                        if (!window.isVisible()) {
-                            window.activate(selectCommit, true);
-                        } else {
-                            selectCommit.run();
                         }
+                    };
+
+                    if (!window.isVisible()) {
+                        window.activate(selectCommit, true);
+                    } else {
+                        selectCommit.run();
                     }
                 }
             };
