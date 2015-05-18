@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="idea-gitignore" default="all">
+<project name="idea-vcswatch" default="all">
     <property file="build.properties"/>
 
     <dirname property="project.basedir" file="${ant.file}"/>
@@ -16,11 +16,12 @@
     <property name="light-psi-all.jar" value="${project.basedir}/light-psi-all.jar"/>
     <property name="JFlex.jar" value="${project.basedir}/JFlex.jar"/>
     <property name="idea-flex.skeleton" value="${project.basedir}/idea-flex.skeleton"/>
-    <property name="idea-vcswatch.jar" value="${project.basedir}/idea-gitignore.jar"/>
+    <property name="idea-vcswatch.jar" value="${project.basedir}/idea-vcswatch.jar"/>
 
     <path id="compile.classpath">
         <pathelement location="${project.build.classes}"/>
         <fileset dir="${java.home}/../lib" includes="**/*.jar" />
+        <fileset dir="${project.build}/../lib" includes="**/*.jar" />
         <fileset dir="${idea.home}" includes="**/*.jar">
             <exclude name="lib/ant/lib/*"/>
         </fileset>
