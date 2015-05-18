@@ -5,6 +5,7 @@ import com.intellij.openapi.vcs.VcsRoot;
 import git4idea.GitVcs;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.idea.svn.SvnVcs;
 import org.zmlx.hg4idea.HgVcs;
 
 /**
@@ -27,6 +28,8 @@ public class VcsWatchRequestFactory {
             return new GitWatchRequest(vcs, root.getPath());
         } else if (vcs instanceof HgVcs) {
             return new HgWatchRequest(vcs, root.getPath());
+        } else if (vcs instanceof SvnVcs) {
+            return new SvnWatchRequest(vcs, root.getPath());
         }
 
         throw new NotImplementedException(vcs.getName());

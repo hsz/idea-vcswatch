@@ -44,6 +44,7 @@
     <depends>com.intellij.modules.lang</depends>
     <depends optional="true">Git4Idea</depends>
     <depends optional="true">hg4idea</depends>
+    <depends optional="true">Subversion</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <projectService
