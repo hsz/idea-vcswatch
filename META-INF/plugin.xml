@@ -17,16 +17,16 @@
       <br/>
       <b>Features</b>
       <ul>
-        <li>none</li>
+        <li>Support GIT repositories</li>
+        <li>Support SVN repositories</li>
+        <li>Support Mercurial repositories</li>
       </ul>
       <br/>
       <br/>
       <b>Feature requests</b>
       <ul>
-        <li>Support GIT repositories</li>
-        <li>Support SVN repositories</li>
-        <li>Support Mercurial repositories</li>
         <li>Exclude project repositories from watching</li>
+        <li>Specify watch interval</li>
       </ul>
       <br/>
       <br/>

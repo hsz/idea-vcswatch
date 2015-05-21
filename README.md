@@ -21,6 +21,7 @@ Feature requests
 ----------------
 
 - Exclude project repositories from watching
+- Specify watch interval
 
 
 Installation
